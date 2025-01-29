@@ -1,0 +1,48 @@
+.attendance-page {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.left-panel {
+  width: 60%;
+}
+
+.right-panel {
+  width: 30%;
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+}
+
+label {
+  margin-right: 10px;
+}
+
+select {
+  margin-bottom: 20px;
+  padding: 5px;
+  width: 100%;
+}
+
+.students-list {
+  margin-top: 20px;
+}
+
+.student-item {
+  margin-bottom: 10px;
+}
+
+.timer {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+input[type="checkbox"] {
+  margin-right: 10px;
+}
