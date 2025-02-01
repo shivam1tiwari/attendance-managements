@@ -9,17 +9,37 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { useState,memo,useEffect } from 'react';
-
+/**
+ * The `ShowAttendance` component is responsible for displaying the attendance records for a given subject and date.
+ * It retrieves the attendance data from `localStorage` and renders a list of students, showing their name, roll number, 
+ * and attendance status (checked for present).
+ * 
+ * The component is memoized to avoid unnecessary re-renders when the props remain unchanged.
+ *
+ * @component
+ * 
+ * @param {Object} props - The properties passed to this component.
+ * @param {string} props.subject - The subject for which attendance is being displayed (e.g., "maths", "science", "hindi").
+ * @param {string} props.date - The date for which attendance is being displayed in 'YYYY-MM-DD' format.
+ * 
+ * @returns {JSX.Element} The rendered JSX for the attendance list, including student details and their attendance status.
+ */
 const ShowAttendance = memo(({subject, date}) => {
   const [students, setStudents] = useState({time:"",students:[]});
-
+/**
+ * This useEffect fetches attendance data from `localStorage` when the component is mounted. 
+ * It sets the students and time based on the current date.
+ */
   useEffect(()=>{
    const stu = JSON.parse(localStorage.getItem('attendance'));
    let now = new Date();
    let currentDate = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}`
    setStudents({time:stu[currentDate]?.[subject]?.time || " ",students:stu[currentDate]?.[subject]?.student || []})  
   },[])
-
+/**
+ * This useEffect fetches attendance data whenever the subject or date changes.
+ * It updates the state with the attendance data for the specified subject and date.
+ */
   useEffect(()=>{
     const stu = JSON.parse(localStorage.getItem('attendance'));
     let now = new Date();

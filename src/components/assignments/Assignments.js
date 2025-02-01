@@ -10,7 +10,6 @@ import NativeSelect from '@mui/material/NativeSelect';
 import "../Attendance.css"
 import { useState, useEffect } from 'react';
 import AnswerSummary from './AnswerSummary';
-
 import Time from '../Time';
 import students from '../constant/students';
 import Questions from './Questions';
@@ -23,7 +22,16 @@ const useStyles = makeStyles({
     marginTop:"10rem"
   }
 });
-
+/**
+ * `Assignments` is a component that allows a user to select a subject and student roll number 
+ * to display quiz questions and their corresponding answer summary.
+ * 
+ * It tracks the current state of the subject selection and the student’s roll number.
+ * The component also includes a time display and allows for updating the answers using the `Questions` component.
+ * The selected answers are retrieved from `localStorage`, and the `AnswerSummary` component shows the student's selected answers.
+ * 
+ * @returns {JSX.Element} The rendered JSX for the assignment interface.
+ */
 const Assignments = () => {
   const classes = useStyles();
   const [state, setState] = useState(false);
@@ -39,7 +47,13 @@ const Assignments = () => {
     const answer = JSON.parse(localStorage.getItem('answer'))
     setAnswer(answer?.[selectedSubject.rollNumber]?.[selectedSubject?.subject]);
   },[selectedSubject,state])
-
+/**
+ * Handles changes to the selected subject and roll number.
+ * Updates the state with the selected subject and roll number.
+ * 
+ * @param {Object} e - The event object from the select dropdown.
+ * @returns {void}
+ */
   const handleSubjectDetails = (e) => {
     const {name, value} = e.target;
     const stuName = students.filter((val)=>val.rollNumber == value)[0]?.name

@@ -24,16 +24,30 @@ const useStyles = makeStyles({
   }
 });
 
+/**
+ * The `Attendance` component manages the attendance for various subjects,
+ * displays attendance details, and allows users to navigate to other pages like assignments and blogs.
+ * It retrieves and updates attendance data stored in `localStorage` and provides a subject selector.
+ * 
+ * @returns {JSX.Element} The rendered JSX for the Attendance page.
+ */
 const Attendance = () => {
   const classes = useStyles();
   const [selectedSubject, setSelectedSubject] = useState("maths");
- 
+ /**
+   * `useEffect` hook to initialize and update attendance data in `localStorage`
+   * on component mount.
+   * - Checks if attendance data exists in `localStorage`.
+   * - If data exists, ensures the current date's attendance is initialized.
+   * - If no attendance data exists, creates a new structure with subjects (hindi, maths, science).
+   * 
+   * @effect
+   */
   useEffect(()=>{
     const attend = localStorage.getItem('attendance');
     if(attend){
       let now = new Date();
       let currentDate = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}`
-      console.log(JSON.parse(attend)["558585"],"duuuuuuuuuuu",currentDate) 
       if(!(JSON.parse(attend)[currentDate])){
       const attendanceObj = JSON.parse(attend)  
       localStorage.setItem("attendance",JSON.stringify({...attendanceObj,...{
@@ -72,7 +86,7 @@ const Attendance = () => {
       })) 
     }
   },[])
-  
+  //  It set subject name
   const handleSubjectDetails = (e) => {
     setSelectedSubject(e.target.value)
   }

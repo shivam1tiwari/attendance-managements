@@ -11,8 +11,12 @@ import { useNavigate } from 'react-router-dom';
 import { Typography } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-
-
+/**
+ * 
+ * @returns {JSX.Elements}
+ * JSX.elements Takes following 
+ * @input_field  { @author{name}, @title {name}, @blog_content }
+ */
 const Post = () => {
   const [model, setModel] = useState({
     title:"",
@@ -21,8 +25,14 @@ const Post = () => {
     imageData:""
   });
 
-  const location = useNavigate()
+  const location = useNavigate();
 
+/**
+ * It takes event as a parameter
+ * When we write any things in floraEditor i.e @blog_content
+ * this function will call and update the model
+ * @param {*} event 
+ */
   const handleModelChange = (event) => {
     setModel({
       ...model,
@@ -30,6 +40,11 @@ const Post = () => {
     });
   };
 
+/**
+ * Handles the change event for form elements and updates the model state with the new value.
+ * 
+ * @param {React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>} e - The event object representing the input change.
+ */
   const handleContent = (e) => {
     const {name, value} = e.target;
     setModel(
@@ -40,6 +55,12 @@ const Post = () => {
     )
   }
 
+/**
+ * Handles the change event when a file is selected in the file input.
+ * It reads the selected file as a Data URL and updates the model state with the base64 string.
+ * 
+ * @param {React.ChangeEvent<HTMLInputElement>} e - The event object representing the file input change.
+ */
   const handleChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -54,7 +75,17 @@ const Post = () => {
       reader.readAsDataURL(file);
     }
   };
-
+  
+/**
+ * Handles the submission of the blog form. 
+ * It creates a new blog entry with the current date, author, title, content, and image data.
+ * The new blog entry is then saved to localStorage.
+ * 
+ * If there are existing blog entries in localStorage, the new blog will be appended.
+ * If no blog entries exist in localStorage, a new blog array will be created with the current blog.
+ * 
+ * After submitting, the form is reset, and the user is redirected to the "/blogspot" page.
+ */
   const handleSubmit = () => {
     const blog = JSON.parse(localStorage.getItem("blog"))
     const now = new Date()
@@ -85,8 +116,6 @@ const Post = () => {
         }
        ) 
     }
-  
-  
   }
 
   return (
@@ -131,7 +160,6 @@ const Post = () => {
         />
         </div>
       </Box>
-
       <form style={{marginTop:"1rem",marginLeft:".5rem"}}>
         <Typography variant='body1' >POST ICON IMAGE</Typography>
         <input onChange={handleChange} type="file" accept="image/*" />

@@ -1,21 +1,30 @@
 import  {React, useEffect, useState} from 'react';
-import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Box,Button, Typography, AppBar, Toolbar } from '@mui/material';
+import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Box, Typography, AppBar, Toolbar } from '@mui/material';
 import quizData from '../constant/quize';
-import { positions } from '@mui/system';
-
+/**
+ * `AnswerSummary` Component that calculates the student's grade based on their quiz answers.
+ * It compares the provided answers with the correct ones and displays a summary including the grade.
+ * @param {Object} props takes props 
+ * @param {Object} value it has value.subject, value.rollNumber, value.name
+ * @param {Object} answer set of answer key value pair
+ * 
+ * @return {JSX.Elemets} This return summary
+ */
 const AnswerSummary = ({ value, answer}) => {
   const [result, setResult] = useState();
+/**
+ *  It set Grade and update after changing 
+ * answer and value props
+ * 
+ */ 
+
   useEffect(()=>{
     let correct = 0;
     quizData?.[value?.subject]?.map((question, i)=>{
-      console.log(question.correctAnswer, answer?.[question.id] || "","0ppppppppp")
       if(question.correctAnswer == answer?.[question.id] || ""){
         correct++; 
-        
-
       }
     })
-  console.log(correct,"jjjjj")
   let perc = (correct*100)/10;
   if(perc >= 33 && perc <= 50){
     setResult("E")
@@ -36,7 +45,7 @@ const AnswerSummary = ({ value, answer}) => {
     setResult("Fail")
   }
   },[answer,value])
- console.log(result)
+
   return (
     <>
     <AppBar sx={{position:"static"}} >
@@ -73,7 +82,6 @@ const AnswerSummary = ({ value, answer}) => {
         </FormControl>
         
       ))}
-      {/* <Button onClick={()=>handleSubmit()} variant="contained">Submit</Button> */}
     </Box>
     </>
   );

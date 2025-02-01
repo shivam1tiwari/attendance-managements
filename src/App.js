@@ -6,7 +6,10 @@ import Assignments from './components/assignments/Assignments.js';
 import Post from './components/blog/Post.js';
 import BlogSpot from './components/blog/BlogSpot.js';
 import Blog from './components/blog/Blog.js';
-
+/**
+ * Main App component to handle routing in the application.
+ * @returns {JSX.Element} The main App component with all routes defined.
+ */
 function App() {
   return (
     <BrowserRouter>

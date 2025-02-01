@@ -11,16 +11,28 @@ import Box from '@mui/material/Box';
 import { Button } from '@mui/material';
 import { useState,memo,useEffect } from 'react';
 
-const AttendanceList = ({subject, students}) => {
+/**
+ * The `AttendanceList` component displays a list of students with checkboxes to mark attendance.
+ * It shows the name, roll number of each student, and allows the user to toggle their attendance status.
+ * Once the user selects which students are present and clicks "Submit", the attendance data is updated in `localStorage`
+ * and the state is reset.
+ * @param {Object} props - The properties passed to this component.
+ * @param {Array} props.students - The list of student objects. Each object should contain a `name` and `rollNumber`.
+ * @param {string} props.subject - The subject for which the attendance is being taken (e.g., "maths", "science", "hindi").
+ * 
+ * @returns {JSX.Element} A list displaying student names with checkboxes for marking attendance.
+ */
+ const AttendanceList = ({subject, students}) => {
   const [checked, setChecked] = useState([]);
+/**
+ * Handles toggling of the checkbox when a student is marked present or absent.
+ * 
+ * @param {string} value - The roll number of the student.
 
-  useEffect(()=>{
-   
-  },[])
+ */
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
-
     if (currentIndex === -1) {
       newChecked.push(value);
     } else {
@@ -29,7 +41,11 @@ const AttendanceList = ({subject, students}) => {
 
     setChecked(newChecked);
   };
-
+/**
+ * Handles the submission of the attendance data.
+ * Updates the attendance data for the current date and subject in `localStorage`,
+ * and resets the state for the attendance list.
+ */
   const handleSubmit = () => {
     const attend = JSON.parse(localStorage.getItem('attendance'));
     let now = new Date();
@@ -46,11 +62,10 @@ const AttendanceList = ({subject, students}) => {
         studentArr.splice(i, 1, obj1);
       }
     }));
-    console.log("===========")
+
     let obj2 = {
       ...attend[currentDate]
     }
-    console.log( obj2,"===========")
     switch (subject) {
       case "maths":
         obj2 = {...obj2, ["maths"]:{time:`${currentTime}`,
@@ -83,9 +98,7 @@ const AttendanceList = ({subject, students}) => {
        <Typography variant='h6' color='white' >Student Name</Typography>
        <Typography variant='h6' color='white'>Roll Number</Typography>
        <Typography variant='h6' color='white'>Attendance</Typography>
-      
       </ListItem>
-      
       {students.map((value) => {
         const labelId = `checkbox-list-secondary-label-${value.rollNumber}`;
         return (
@@ -110,9 +123,7 @@ const AttendanceList = ({subject, students}) => {
               <ListItemText id={labelId} primary={value.rollNumber} />
               </Box>
             </ListItemButton>
-            
-          </ListItem>
-          
+          </ListItem> 
         );
       })}
       <Box sx={{display:"flex",justifyContent:"flex-end",marginTop:"1rem"}} >

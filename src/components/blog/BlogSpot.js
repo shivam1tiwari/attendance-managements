@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid2';
 import { Typography } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView';
 import AppBar from '@mui/material/AppBar';
@@ -20,9 +20,18 @@ const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: '#1A2027',
   }),
 }));
-
+/**
+ * 
+ * @returns {JSX.Elements}
+ * Which have multiple blog data
+ * After click on title it will go to blog 
+ * And show the content of the blog 
+ */
 const BlogSpot = () => {
  const [blog, setBlog] = React.useState();
+ /**
+  * It fetch all blog data from localstorage
+  */
   useEffect(()=>{
     const blog = JSON.parse(localStorage.getItem("blog"));
     setBlog(blog);
@@ -44,7 +53,9 @@ const BlogSpot = () => {
             </Box>
             <Box sx={{display:"flex",flexDirection:"column",alignContent:"space-between"}}>
               <Box sx={{width:"92%", height:"200px",wordWrap:"break-word",overflow:"hidden"}} >
-              <Link to={`/blogspot/${item.id}`} ><Typography variant='h5' >{item.title}</Typography></Link>
+              <Link to={`/blogspot/${item.id}`} >
+              <Typography variant='h5' >{item.title}</Typography>
+              </Link>
               <Typography variant='body1' >{<FroalaEditorView model={item.model} />}</Typography>
               </Box>
               <Box sx={{display:"flex",gap:"2rem"}}>
